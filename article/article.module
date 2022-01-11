@@ -1,0 +1,35 @@
+<?php
+
+ /**
+  * @file
+  * Implements hook_theme().
+  */
+function article_theme($existing, $type, $theme, $path) {
+  // {@inheritdoc}.
+  return [
+    'article_tpl' => [
+      'variables' => [
+        'result_node' => NULL,
+      ],
+      'template' => 'article-tpl',
+    ],
+  ];
+}
+
+/**
+  * @file
+  * Implements hook_form_alter().
+  */
+
+
+function article_form_alter(&$form,\Drupal\Core\Form\FormStateInterface $form_state,$form_id){
+   if ($form_id == 'node_image_styles_form') {
+    $form_value = $form['actions']['submit']['#value'] =t('vishal');
+    $form_value = $form['actions']['preview']['#value'] = t('vicky');
+    $form_value = $form['actions']['preview']['#attributes']['class'][] = 'timepicker hasDatepicker';
+    // echo "<pre>";
+    // print_r($form_value);
+    // die();
+     // code...
+   }
+}

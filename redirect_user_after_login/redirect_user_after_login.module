@@ -1,0 +1,30 @@
+<?php
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+/**
+ * Implements hook_form_alter().
+ */
+function redirect_user_after_login_form_alter(&$form, FormStateInterface $form_state, $form_id)
+{
+    switch ($form_id) {
+        case 'redirect-user-after-login-form':
+        die("121");
+            $form['#submit'][] = '_login_page_redirect_user_login_form_submit';
+            break;
+    }
+}
+
+/**
+ * Custom submit handler for login form.
+ */
+function _login_page_redirect_user_login_form_submit($form, FormStateInterface $form_state)
+{
+    $path = \Drupal::config('redirect_user_after_login.settings')->get('redirect_user_after_login.path');
+    if ($path == '<front>') {
+        $path = '/';
+    }
+    $homeResponse = new RedirectResponse(URL::fromUserInput($path)->toString());
+    $homeResponse->send();
+}

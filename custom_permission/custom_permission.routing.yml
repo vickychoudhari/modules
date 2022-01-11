@@ -1,0 +1,13 @@
+sample_permissions.overview:
+
+  path: '/sample-permissions'
+
+  defaults:
+
+    _controller: '\Drupal\sample_permissions\Controller\SamplePermissionsPageController::overviewPage'
+
+    _title: 'Sample Permissions Page Title'
+
+  requirements:
+
+    _permission: 'access content'

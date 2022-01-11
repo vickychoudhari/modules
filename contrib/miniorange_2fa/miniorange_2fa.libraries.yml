@@ -1,0 +1,18 @@
+miniorange_2fa.admin:
+  version: VERSION
+  css:
+    layout:
+      includes/css/style_settings.css: {}
+      includes/css/phone.css: {}
+  js:
+    includes/js/backdoor.js: {}
+
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+
+miniorange_2fa.license:
+  version: VERSION
+  js:
+    includes/js/mo_authentication.js: {}
+    includes/js/mo_settings.js: {}

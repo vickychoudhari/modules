@@ -1,0 +1,5 @@
+name: custom_form
+description: Create a custom form in drupal 8
+core: 8.x
+package: Custom
+type: module

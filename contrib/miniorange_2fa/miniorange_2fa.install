@@ -1,0 +1,91 @@
+<?php
+/*
+ * No need of Uninstall hook.
+ */
+
+/*
+ * Implements hook_schema().
+ *
+ * Defines the database tables used by this module.
+ *
+ * @see hook_schema()
+ *
+ * @ingroup lotus
+ */
+ use Drupal\Core\Database\Database;
+function miniorange_2fa_schema() {
+    $schema['UserAuthenticationType'] = array(
+        'description' => 'Stores example user ID and his authentication type.',
+        'fields' => array (
+            'uid' => array (
+                'type' => 'int',
+                'not null' => TRUE,
+                'default' => 0,
+                'description' => " user's id",
+            ),
+            'configured_auth_methods' => array(
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+                'default' => '',
+                'description' => 'authentication type of user.',
+            ),
+            'miniorange_registered_email' => array(
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+                'default' => '',
+                'description' => 'miniorange registered email.',
+            ),
+            'activated_auth_methods' => array(
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+                'default' => 'OUT OF BAND EMAIL',
+                'description' => 'activated authentication type of user.',
+            ),
+            'enabled' => [
+                    'description' => 'Boolean indicating whether the MFA is enabled.',
+                    'type' => 'int',
+                    'not null' => FALSE,
+                    'default' => 1,
+                    'size' => 'tiny',
+            ]
+        ),
+    );
+    return $schema;
+}
+
+
+function miniorange_2fa_update_8217(){
+$editConfig = \Drupal::configFactory()->getEditable('miniorange_2fa.settings');
+    $editConfig->set('allow_end_users_to_decide', FALSE);
+    $editConfig->set('end_users_can_decide_without_rules', FALSE);
+    $editConfig->set('skip_not_allowed_for_secured_users', FALSE)->save();
+    $newField = [
+                    'description' => 'Boolean indicating whether the MFA is enabled.',
+                    'type' => 'int',
+                    'not null' => FALSE,
+                    'default' => 1,
+                    'size' => 'tiny',
+            ];
+    $schema = Database::getConnection()->schema();
+    $schema->addField('UserAuthenticationType', 'enabled', $newField);
+}
+
+
+function miniorange_2fa_uninstall() {
+    \Drupal::configFactory()->getEditable('miniorange_2fa.settings')->delete();
+}
+
+/**
+ * Implements hook_install().
+ */
+function miniorange_2fa_install() {
+    $editConfig = \Drupal::configFactory()->getEditable('miniorange_2fa.settings');
+    $editConfig->set('mo_auth_enable_backdoor', 0);
+    $editConfig->set('allow_end_users_to_decide',FALSE);
+    $editConfig->set('end_users_can_decide_without_rules',FALSE);
+    $editConfig->set('skip_not_allowed_for_secured_users',FALSE);
+    $editConfig->set('mo_auth_custom_organization_name', 'login')->save();
+}

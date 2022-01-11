@@ -1,0 +1,15 @@
+name: 'miniOrange Second Factor Authentication'
+type: module
+package: Second Factor Authentication
+core: 8.x
+core_version_requirement: ^8 || ^9
+description: 'Easily add Two Factor Authentication to protect sites from unauthorized login attempts.'
+configure: miniorange_2fa.customer_setup
+# Information added by Drupal.org packaging script on 2021-08-11
+# version: '8.x-2.21'
+# project: 'miniorange_2fa'
+# datestamp: 1628687684
+# Information added by Drupal.org packaging script on 2021-11-27
+version: '8.x-2.23'
+project: 'miniorange_2fa'
+datestamp: 1637993537

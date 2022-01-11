@@ -1,0 +1,7 @@
+drilldown:
+  version: VERSION
+  js:
+    /libraries/highcharts_data/data.js: {}
+    /libraries/highcharts_drilldown/drilldown.js: {}
+  dependencies:
+    - core/drupal

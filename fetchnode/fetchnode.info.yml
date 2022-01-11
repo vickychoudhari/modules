@@ -1,0 +1,6 @@
+name: Drupal 8 node id Fetch
+type: module
+description: 'node Id Fetch with drupal .'
+package: Custom
+version: 8.x
+core: 8.x

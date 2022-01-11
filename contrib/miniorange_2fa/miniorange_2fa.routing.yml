@@ -1,0 +1,336 @@
+miniorange_2fa.customer_setup:
+  path: /admin/config/people/miniorange_2fa/customer_setup
+  defaults:
+    _title: 'miniOrange 2FA Account Setup'
+    _form: \Drupal\miniorange_2fa\Form\MoAuthCustomerSetup
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.setup_twofactor:
+  path: /admin/config/people/miniorange_2fa/setup_twofactor
+  defaults:
+    _title: 'miniOrange 2FA Setup Second Factor'
+    _form: \Drupal\miniorange_2fa\Form\MoAuthSetupTwoFactor
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.login_settings:
+  path: /admin/config/people/miniorange_2fa/login_settings
+  defaults:
+    _title: 'miniOrange 2FA Login Settings'
+    _form: \Drupal\miniorange_2fa\Form\MoAuthLoginSettings
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.user_management:
+    path: /admin/config/people/miniorange_2fa/user_management
+    defaults:
+        _title: 'miniOrange 2FA User Management'
+        _form: \Drupal\miniorange_2fa\Form\MoAuthUserManagement
+    requirements:
+        _permission: 'administer site configuration'
+
+miniorange_2fa.headless:
+    path: /admin/config/people/miniorange_2fa/headlesSsetup
+    defaults:
+      _title: 'miniOrange 2FA Headless Setup'
+      _form: \Drupal\miniorange_2fa\Form\MoAuthHeadlessSetup
+    requirements:
+      _permission: 'administer site configuration'
+
+miniorange_2fa.licensing:
+  path: /admin/config/people/miniorange_2fa/licensing
+  defaults:
+    _title: 'miniOrange 2FA Upgrade Plans'
+    _form: \Drupal\miniorange_2fa\Form\MoAuthLicensing
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.support:
+    path: /admin/config/people/miniorange_2fa/support
+    defaults:
+      _title: 'miniOrange 2FA Support'
+      _form: \Drupal\miniorange_2fa\Form\MoAuthSupport
+    requirements:
+      _permission: 'administer site configuration'
+
+miniorange_2fa.test_email_verification:
+    path: /admin/config/people/miniorange_2fa/setup/user/test/email-verification
+    defaults:
+      _title: 'miniOrange 2FA Test Email Verification'
+      _form: \Drupal\miniorange_2fa\Form\test_email_verification
+    requirements:
+      _permission: 'administer site configuration'
+
+miniorange_2fa.configure_google_authenticator:
+    path: /admin/config/people/miniorange_2fa/setup/user/configure/google-authenticator
+    defaults:
+      _title: 'miniOrange 2FA Configure Google Authenticator'
+      _form: \Drupal\miniorange_2fa\Form\configure_google_authenticator
+    requirements:
+      _permission: 'administer site configuration'
+
+miniorange_2fa.configure_microsoft_authenticator:
+    path: /admin/config/people/miniorange_2fa/setup/user/configure/microsoft-authenticator
+    defaults:
+      _title: 'miniOrange 2FA Configure Microsoft Authenticator'
+      _form: \Drupal\miniorange_2fa\Form\configure_google_authenticator
+    requirements:
+      _permission: 'administer site configuration'
+
+miniorange_2fa.configure_duo_authenticator:
+    path: /admin/config/people/miniorange_2fa/setup/user/configure/duo-authenticator
+    defaults:
+        _title: 'miniOrange 2FA Configure Duo Authenticator'
+        _form: \Drupal\miniorange_2fa\Form\configure_google_authenticator
+    requirements:
+        _permission: 'administer site configuration'
+
+miniorange_2fa.configure_authy_authenticator:
+    path: /admin/config/people/miniorange_2fa/setup/user/configure/authy-authenticator
+    defaults:
+        _title: 'miniOrange 2FA Configure Authy Authenticator'
+        _form: \Drupal\miniorange_2fa\Form\configure_google_authenticator
+    requirements:
+        _permission: 'administer site configuration'
+
+miniorange_2fa.configure_lastpass_authenticator:
+    path: /admin/config/people/miniorange_2fa/setup/user/configure/lastpass-authenticator
+    defaults:
+        _title: 'miniOrange 2FA Configure LastPass Authenticator'
+        _form: \Drupal\miniorange_2fa\Form\configure_google_authenticator
+    requirements:
+        _permission: 'administer site configuration'
+
+miniorange_2fa.configure_kba_authentication:
+    path: /admin/config/people/miniorange_2fa/setup/user/configure/kba-authentication
+    defaults:
+        _title: 'miniOrange 2FA Configure KBA'
+        _form: \Drupal\miniorange_2fa\Form\configure_kba
+    requirements:
+        _permission: 'administer site configuration'
+
+miniorange_2fa.configure_qrcode_authentication:
+  path: /admin/config/people/miniorange_2fa/setup/user/configure/qrcode-authentication
+  defaults:
+    _title: 'miniOrange 2FA Configure QR Code Authentication'
+    _form: \Drupal\miniorange_2fa\Form\configure_qrcode_authentication
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.configure_soft_token_authentication:
+  path: /admin/config/people/miniorange_2fa/setup/user/configure/soft-token
+  defaults:
+    _title: 'miniOrange 2FA Configure Soft Token'
+    _form: \Drupal\miniorange_2fa\Form\configure_qrcode_authentication
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.configure_push_notification_authentication:
+  path: /admin/config/people/miniorange_2fa/setup/user/configure/push-notifications
+  defaults:
+    _title: 'miniOrange 2FA Configure Push Notification'
+    _form: \Drupal\miniorange_2fa\Form\configure_qrcode_authentication
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.configure_otp_over_sms_authentication:
+  path: /admin/config/people/miniorange_2fa/setup/user/configure/otp-over-sms
+  defaults:
+    _title: 'miniOrange 2FA Configure OTP Over SMS'
+    _form: \Drupal\miniorange_2fa\Form\configure_otp_over_sms_and_email
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.configure_otp_over_email_authentication:
+    path: /admin/config/people/miniorange_2fa/setup/user/configure/otp-over-email
+    defaults:
+        _title: 'miniOrange 2FA Configure OTP Over Email'
+        _form: \Drupal\miniorange_2fa\Form\configure_otp_over_sms_and_email
+    requirements:
+        _permission: 'administer site configuration'
+
+miniorange_2fa.configure_otp_over_sms_and_email_authentication:
+  path: /admin/config/people/miniorange_2fa/setup/user/configure/otp-over-sms-and-email
+  defaults:
+    _title: 'miniOrange 2FA Configure OTP Over SMS and Email'
+    _form: \Drupal\miniorange_2fa\Form\configure_otp_over_sms_and_email
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.configure_otp_over_phone_authentication:
+  path: /admin/config/people/miniorange_2fa/setup/user/configure/otp-over-phone
+  defaults:
+    _title: 'miniOrange 2FA Configure OTP Over Phone'
+    _form: \Drupal\miniorange_2fa\Form\configure_otp_over_sms_and_email
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.configure_hardware_token_authentication:
+    path: /admin/config/people/miniorange_2fa/setup/user/configure/hardware-token
+    defaults:
+        _title: 'miniOrange 2FA Configure Yubikey Hardware Token'
+        _form: \Drupal\miniorange_2fa\Form\configure_otp_over_sms_and_email
+    requirements:
+        _permission: 'administer site configuration'
+
+miniorange_2fa.test_kba_authentication:
+  path: /admin/config/people/miniorange_2fa/setup/user/test/kba-authentication
+  defaults:
+    _title: 'miniOrange 2FA Test KBA'
+    _form: \Drupal\miniorange_2fa\Form\test_kba_authentication
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.test_otp_over_sms:
+  path: /admin/config/people/miniorange_2fa/setup/user/test/otp-over-sms
+  defaults:
+    _title: 'miniOrange 2FA Test OTP Over SMS'
+    _form: \Drupal\miniorange_2fa\Form\test_otp_over_sms_and_email
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.test_otp_over_sms_and_email:
+  path: /admin/config/people/miniorange_2fa/setup/user/test/otp-over-sms-and-email
+  defaults:
+    _title: 'miniOrange 2FA Test OTP Over SMS and Email'
+    _form: \Drupal\miniorange_2fa\Form\test_otp_over_sms_and_email
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.test_otp_over_email:
+  path: /admin/config/people/miniorange_2fa/setup/user/test/otp-over-email
+  defaults:
+    _title: 'miniOrange 2FA Test OTP Over Email'
+    _form: \Drupal\miniorange_2fa\Form\test_otp_over_sms_and_email
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.test_otp_over_phone:
+  path: /admin/config/people/miniorange_2fa/setup/user/test/otp-over-phone
+  defaults:
+    _title: 'miniOrange 2FA Test OTP Over Phone'
+    _form: \Drupal\miniorange_2fa\Form\test_otp_over_sms_and_email
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.test_google_authenticator:
+  path: /admin/config/people/miniorange_2fa/setup/user/test/google-authenticator
+  defaults:
+    _title: 'miniOrange 2FA Test Google Authenticator'
+    _form: \Drupal\miniorange_2fa\Form\test_google_authenticator
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.test_duo_authenticator:
+    path: /admin/config/people/miniorange_2fa/setup/user/test/duo-authenticator
+    defaults:
+        _title: 'miniOrange 2FA Test Duo Authenticator'
+        _form: \Drupal\miniorange_2fa\Form\test_google_authenticator
+    requirements:
+        _permission: 'administer site configuration'
+
+miniorange_2fa.test_microsoft_authenticator:
+    path: /admin/config/people/miniorange_2fa/setup/user/test/microsoft-authenticator
+    defaults:
+        _title: 'miniOrange 2FA Test Microsoft Authenticator'
+        _form: \Drupal\miniorange_2fa\Form\test_google_authenticator
+    requirements:
+        _permission: 'administer site configuration'
+
+miniorange_2fa.test_authy_authenticator:
+    path: /admin/config/people/miniorange_2fa/setup/user/test/authy-authenticator
+    defaults:
+        _title: 'miniOrange 2FA Test Authy Authenticator'
+        _form: \Drupal\miniorange_2fa\Form\test_google_authenticator
+    requirements:
+        _permission: 'administer site configuration'
+
+miniorange_2fa.test_lastpass_authenticator:
+    path: /admin/config/people/miniorange_2fa/setup/user/test/lastpass-authenticator
+    defaults:
+        _title: 'miniOrange 2FA Test LastPass Authenticator'
+        _form: \Drupal\miniorange_2fa\Form\test_google_authenticator
+    requirements:
+        _permission: 'administer site configuration'
+
+miniorange_2fa.test_qrcode_authentication:
+  path: /admin/config/people/miniorange_2fa/setup/user/test/qrcode-authentication
+  defaults:
+    _title: 'miniOrange 2FA Test QR Code Authentication'
+    _form: \Drupal\miniorange_2fa\Form\test_qrcode_authentication
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.test_soft_token:
+  path: /admin/config/people/miniorange_2fa/setup/user/test/soft-token
+  defaults:
+    _title: 'miniOrange 2FA Test Soft Token'
+    _form: \Drupal\miniorange_2fa\Form\test_google_authenticator
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.test_push_notifications:
+  path: /admin/config/people/miniorange_2fa/setup/user/test/push-notifications
+  defaults:
+    _title: 'miniOrange 2FA Test Push Notification'
+    _form: \Drupal\miniorange_2fa\Form\test_email_verification
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.test_hardware_token_authentication:
+  path: /admin/config/people/miniorange_2fa/setup/user/test/hardware-token
+  defaults:
+    _title: 'miniOrange 2FA Test Yubikey Hardware Token'
+    _form: \Drupal\miniorange_2fa\Form\test_otp_over_sms_and_email
+  requirements:
+    _permission: 'administer site configuration'
+
+miniorange_2fa.inline_registration:
+  path: /login/user/{user}/register
+  defaults:
+    _title: 'miniOrange 2FA Configuration'
+    _form: \Drupal\miniorange_2fa\Form\miniorange_2fa_inline_registration
+  requirements:
+    _access: 'TRUE'
+
+miniorange_2fa.authenticate_user:
+  path: /login/user/{user}/authenticate
+  defaults:
+    _title: 'miniOrange 2FA Configuration'
+    _form: \Drupal\miniorange_2fa\Form\authenticate_user
+  requirements:
+     _access: 'TRUE'
+
+miniorange_2fa.user.mo_mfa_form:
+  path: /mfa_setup/{user}/settings
+  defaults:
+    _title: '2FA Configurations'
+    _form: \Drupal\miniorange_2fa\Form\UserMfaSetup
+  requirements:
+    _access: 'TRUE'
+
+miniorange_2fa.modal_form:
+  path: /removeAccount
+  defaults:
+    _title: 'miniorange 2FA Remove Account'
+    _controller: '\Drupal\miniorange_2fa\Controller\miniorange_2faController::openModalForm'
+  requirements:
+    _permission: 'administer site configuration'
+
+
+miniorange_2fa.headless_2fa_authenticate:
+  path: /headless/authenticate
+  defaults:
+    _controller: '\Drupal\miniorange_2fa\Controller\miniorange_2faController::headless_2fa_authenticate'
+  methods: [GET,POST]
+  requirements:
+    _access: 'TRUE'
+
+miniorange_2fa.headless_2fa_login:
+  path: /headless/login
+  defaults:
+    _controller: '\Drupal\miniorange_2fa\Controller\miniorange_2faController::headless_2fa_login'
+  methods: [GET,POST]
+  requirements:
+    _access: 'TRUE'

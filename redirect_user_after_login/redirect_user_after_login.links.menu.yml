@@ -1,0 +1,4 @@
+redirect_user_after_login.admin:
+  title: 'Login Redirect'
+  parent: system.admin_config_system
+  route_name: redirect_user_after_login.settings

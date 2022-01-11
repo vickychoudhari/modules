@@ -1,0 +1,14 @@
+fetchnodeid.mypages:
+    path: '/admin/nodeid'
+    defaults:
+        _form: 'Drupal\fetchnodeid\Form\FetchNodeIdForm'
+        _title: 'Drupal 8 form'
+    requirements:    
+        _permission : 'access content'
+fetchnodeid.contents:
+    path: '/admin/node/show'
+    defaults:
+        _controller: '\Drupal\fetchnodeid\Controller\FetchNodeIdController::viewPrint'
+        _title: 'Show Data'
+    requirements:
+        _permission: 'access content'

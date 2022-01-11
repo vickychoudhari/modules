@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * Implements hook_chart_alter().
+ */
+function charts_highcharts_drilldown_chart_alter(array &$element, $chart_id) {
+  $element['#attached']['library'][] = 'charts_highcharts_drilldown/drilldown';
+}
+
+function charts_highcharts_drilldown_chart_definition_alter(array &$definition, array $element, $chart_id) {
+  if ($element['#chart_library'] === 'highcharts' && isset($definition['drilldown'])) {
+    $yaxis_title = $definition['yAxis'][0]['title']['text'];
+    unset($definition['yAxis']);
+    $definition['yAxis']['title']['text'] = $yaxis_title;
+    unset($definition['xAxis']);
+    $definition['xAxis']['type'] = 'category';
+    // Get drilldown series.
+    $name = '';
+    foreach ($definition['series'] as $single) {
+      if (isset($single['data'][0]['drilldown'])) {
+        $drilldown = $single;
+      }
+    }
+    unset($definition['series']);
+    $definition['series'][] = $drilldown;
+    $definition['accessibility']['announceNewData'] = [
+      'enabled' => TRUE,
+    ];
+    $definition['plotOptions']['series']['dataLabels'] = [
+      'enabled' => TRUE,
+    ];
+  }
+}

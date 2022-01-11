@@ -1,0 +1,7 @@
+fetchnode.mypages:
+    path: '/admin/node'
+    defaults:
+        _form: 'Drupal\fetchnode\Form\FetchNodeForm'
+        _title: 'node query id get the path and his title'
+    requirements:    
+        _permission : 'access content'

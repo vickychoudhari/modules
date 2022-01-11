@@ -1,0 +1,7 @@
+mailsend.mypage:
+    path: '/mailsend/mypage'
+    defaults:
+        _form: 'Drupal\mailsend\Form\FormQueue'
+        _title: 'Drupal 8 queue work form'
+    requirements:    
+        _permission : 'access content'

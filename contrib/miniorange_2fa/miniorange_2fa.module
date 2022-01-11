@@ -1,0 +1,308 @@
+<?php
+
+/**
+ * @file
+ * Module file for miniOrange 2FA Module.
+ */
+
+use Drupal\Core\Url;
+use Drupal\user\Entity\User;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\miniorange_2fa\MoAuthConstants;
+use Drupal\miniorange_2fa\MoAuthUtilities;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\miniorange_2fa\Form\MoAuthCustomerSetup;
+
+function miniorange_2fa_menu_local_tasks_alter(&$data, $route_name) {
+    $variables_and_values = array(
+        'mo_auth_enable_two_factor',
+    );
+    $mo_db_values = MoAuthUtilities::miniOrange_set_get_configurations( $variables_and_values, 'GET' );
+    if( !$mo_db_values['mo_auth_enable_two_factor'] || !MoAuthUtilities::isUserCanSee2FASettings() && isset( $data['tabs']['0']['miniorange_2fa.user.mo_mfa_form']) ) {
+       unset($data['tabs']['0']['miniorange_2fa.user.mo_mfa_form']);
+    }
+}
+
+function miniorange_2fa_form_alter( &$form, FormStateInterface $form_state, $form_id ) {
+    $variables_and_values = array(
+        'mo_auth_enable_login_with_email',
+        'mo_auth_enable_login_with_phone',
+        'mo_auth_override_login_labels',
+        'mo_auth_username_title',
+        'mo_auth_username_description',
+        'mo_auth_enable_two_factor',
+        'mo_auth_use_only_2nd_factor',
+        'mo_auth_2fa_use_pass',
+        'mo_auth_2fa_license_expiry',
+        'mo_auth_2fa_license_type',
+    );
+    $mo_db_values = MoAuthUtilities::miniOrange_set_get_configurations( $variables_and_values, 'GET' );
+
+    /**
+     * Show admin dashboard notification about license renewal
+     */
+    $is_admin         = \Drupal::service('router.admin_context')->isAdminRoute();
+    $isLicenseExpired = MoAuthUtilities::getIsLicenseExpired( $mo_db_values['mo_auth_2fa_license_expiry'] );
+    $updateLicense    = Markup::create('</span><a target="_blank" href=" ' . MoAuthUtilities::getUpgradeURL( MoAuthConstants::$RENEW_SUBSCRIPTION_PLAN ) . ' ">here</a>');
+
+    if ( $is_admin && isset( $mo_db_values['mo_auth_2fa_license_expiry'] ) && $mo_db_values['mo_auth_2fa_license_type'] != 'DEMO' && $isLicenseExpired['LicenseGoingToExpire'] ) {
+        if ( $isLicenseExpired['LicenseAlreadyExpired'] )
+            \Drupal::messenger()->addError( t('Your license for Drupal 2FA module was expired on ' . $mo_db_values['mo_auth_2fa_license_expiry'] . '. Due to which 2FA service stopped on the same date! Click ' . $updateLicense . ' to renew your license.') );
+        else
+            \Drupal::messenger()->addWarning( t('Your license for Drupal 2FA module will expire on ' . $mo_db_values['mo_auth_2fa_license_expiry'] . '. After which 2FA service will stop! Click ' . $updateLicense . ' to renew your license.') );
+    }
+
+
+    /**
+     * Disable few of the radio buttons from radio button group.
+     */
+    if ( $form_id == 'miniorange_2fa_setup_two_factor' ) {
+        $form['mo_setup_second_factor']['mo_auth_method']['WHATSAPP']        = [ '#disabled' => TRUE ];
+    }
+
+    if( $form_id == 'user_login_block' || $form_id == 'user_login_form' || $form_id == 'user_profile_form' ) {
+        switch ( $form_id ) {
+           case 'user_login_form':
+               /**
+                * Check if login with email or phone enabled if yes call function miniorange_2fa_form_extra_validate.
+                */
+               if ( $mo_db_values['mo_auth_enable_login_with_email'] || $mo_db_values['mo_auth_enable_login_with_phone'] ) {
+                   array_unshift($form['#validate'], 'miniorange_2fa_form_extra_validate');
+               }
+
+               /**
+                * Check for settings to override login form username title and description.
+                */
+               if ( $mo_db_values['mo_auth_override_login_labels'] ) {
+                 $form['name']['#title'] = t( $mo_db_values['mo_auth_username_title'] );
+                 $form['name']['#description'] = t( $mo_db_values['mo_auth_username_description'] );
+               }
+               break;
+        }
+
+        if ( MoAuthUtilities::isCustomerRegistered() ) {
+            $loginSettings = $mo_db_values['mo_auth_enable_two_factor'];
+            if ( $loginSettings && !MoAuthUtilities::check_white_IPs() ) {
+                \Drupal::service('page_cache_kill_switch')->trigger();
+                $only_2nd_factor = $mo_db_values['mo_auth_use_only_2nd_factor'];
+                $use_pass        = $mo_db_values['mo_auth_2fa_use_pass'];
+
+                if( $only_2nd_factor and ( !isset( $use_pass ) ) ) {
+                    $output  = array_diff_key( $form, array_flip( ( array )['pass'] ) );
+                    $output1 = array_diff_key( $output, array_flip( ( array )['actions'] ) );
+                    $output2 = array_diff_key( $output1, array_flip( ( array )['#validate'] ) );
+                    $form    = $output2;
+                    $form['minorange_login_tfa'] = array(
+                        '#type'   => 'submit',
+                        '#value'  => t('Login with 2nd Factor'),
+                        '#submit' => array('miniorange_2fa_form_alter_submit'),
+                        '#prefix' => '<br><br><br>',
+                    );
+                } else {
+                  array_unshift($form['#submit'], 'miniorange_2fa_form_alter_submit');
+                  \Drupal::configFactory()->getEditable('miniorange_2fa.settings')->clear('mo_auth_2fa_use_pass')->save();
+                }
+            }
+        }
+    }
+}
+
+function miniorange_2fa_form_extra_validate( $form, FormStateInterface &$form_state ) {
+    $login_input = $form_state->getValue('name');
+    if ( filter_var( $login_input, FILTER_VALIDATE_EMAIL ) ) {
+        $user = user_load_by_mail( $login_input );
+        if ( $user ) {
+            $form_state->setValue( 'name', $user->getAccountName() );
+        }
+    } elseif ( preg_match('/^[0-9]{6,16}$/', str_replace("+","",  $login_input ) ) ) {
+        $resultSet = MoAuthUtilities::loadUserByPhoneNumber( $login_input );
+        if( $resultSet['status'] === 'SUCCESS' ) {
+            $user = User::load( $resultSet['userID'] );
+            $form_state->setValue( 'name', $user->getAccountName() );
+        } elseif ( $resultSet['status'] === 'FAILED' ) {
+            \Drupal::messenger()->addError( t( $resultSet['error'] ) );
+            //$form_state->setValidationComplete(FALSE );
+            //$form_state->setErrorByName('name', t( $resultSet['error'] ) );
+        }
+    }
+}
+
+function miniorange_2fa_form_alter_submit(&$form, FormStateInterface $form_state) {
+
+    \Drupal::messenger()->deleteAll();
+    $utilities = new MoAuthUtilities();
+    $variables_and_values1 = array(
+        'mo_auth_use_only_2nd_factor',
+        'mo_auth_enable_login_with_email',
+        'mo_auth_enable_login_with_phone',
+    );
+    $mo_db_values = $utilities->miniOrange_set_get_configurations( $variables_and_values1, 'GET' );
+    $formValues = $form_state->getValues();
+
+    /**
+     * Handle enable login with Email option when with second factor enabled
+     */
+    if( $mo_db_values['mo_auth_enable_login_with_email'] || $mo_db_values['mo_auth_enable_login_with_phone'] ) {
+        miniorange_2fa_form_extra_validate( $form, $form_state );
+    }
+
+    /**
+     * Handle Login with second factor ( NO PASSWORD REQUIRED )
+     */
+    $mo_auth_use_only_2nd_factor = $mo_db_values['mo_auth_use_only_2nd_factor'];
+    $username = $form_state->getValue('name');
+    if ( $mo_auth_use_only_2nd_factor ) {
+        if( isset( $formValues['pass'] ) ) {
+            $password = $formValues['pass'];
+            unset( $_GET['destination'] );
+            if( !( \Drupal::service('user.auth')->authenticate( $username, $password ) ) ) {
+                \Drupal::messenger()->addError(t('Invalid username/password'));
+                return;
+            }
+        }
+    }else {
+        $password = $form_state->getValue('pass');
+        unset( $_GET['destination'] );
+        if( !( \Drupal::service('user.auth')->authenticate( $username, $password ) ) ) {
+            \Drupal::messenger()->addError(t('Invalid username/password'));
+            return;
+        }
+    }
+
+    $tmpDestination = isset( $_GET['destination'] ) ? $_GET['destination'] : '';
+
+    $utilities->invoke2fa_OR_inlineRegistration( $username, $tmpDestination );
+}
+
+/**
+ * Fetch license whenever cron run and keep remaining transactions upto date so that user can see those
+ */
+function miniorange_2fa_cron() {
+    $customer = new MoAuthCustomerSetup();
+    $from_state = '';
+    $customer->mo_auth_fetch_customer_license('',$from_state, 'CRON' );
+}
+
+/**
+ * Catch the call from SSO modules and invoke 2FA.
+ */
+function miniorange_2fa_invoke_miniorange_2fa_before_login( $account ) {
+    $utilities = new MoAuthUtilities();
+    $variables_and_values = array(
+        'mo_auth_enable_two_factor',
+    );
+    $mo_db_values = $utilities->miniOrange_set_get_configurations( $variables_and_values, 'GET' );
+    if ( $utilities->isCustomerRegistered() && $mo_db_values['mo_auth_enable_two_factor'] === TRUE ) {
+        $utilities->mo_add_loggers_for_failures('<strong>Email in SSO Response: </strong>' . $account->getDisplayName(), 'info');
+        $utilities->invoke2fa_OR_inlineRegistration( $account->getDisplayName() );
+    }
+}
+
+function miniorange_2fa_cilogon_auth_pre_authorize( $account ) {
+    $user = user_load_by_mail( $account->getEmail() );
+    if( $user === false ) {
+        // If user is not exist in Drupal then return TRUE so that CILogin module creates that users
+        return TRUE;
+    }
+    $utilities = new MoAuthUtilities();
+    $variables_and_values = array(
+        'mo_auth_enable_two_factor',
+    );
+    $mo_db_values = $utilities->miniOrange_set_get_configurations( $variables_and_values, 'GET' );
+    if ( $utilities->isCustomerRegistered() && $mo_db_values['mo_auth_enable_two_factor'] === TRUE ) {
+        $utilities->mo_add_loggers_for_failures('<strong>Email in SSO Response: </strong>' . $user->getEmail(), 'info');
+        $utilities->invoke2fa_OR_inlineRegistration( $user->getUsername() );
+    }
+    return TRUE;
+}
+
+function miniorange_2fa_user_delete( $account){
+    $query = \Drupal::database()->delete('UserAuthenticationType');
+    $query->condition('uid', $account->id(), '=');
+    $query->execute();
+}
+
+/**
+ * Implements hook_help().
+ */
+function miniorange_2fa_help($route_name, RouteMatchInterface $route_match) {
+    switch ($route_name) {
+        case 'help.page.miniorange_2fa':
+            $url = Url::fromRoute('user.admin_index')->toString();
+            $moduleLink = $url .'/miniorange_2fa/customer_setup';
+            $supoortLink = $url .'/miniorange_2fa/customer_setup';
+
+            $GoogleAuthenticator     = 'https://plugins.miniorange.com/drupal-google-authenticator';
+            $MicrosoftAuthenticator  = 'https://plugins.miniorange.com/drupal-microsoft-authenticator';
+            $DuoAuthenticator        = 'https://plugins.miniorange.com/drupal-duo-authenticator';
+            $AuthyAuthenticator      = 'https://plugins.miniorange.com/drupal-authy-authenticator';
+            $LastPassAuthenticator   = 'https://plugins.miniorange.com/drupal-lastpass-authenticator';
+            $miniOrangeAuthenticator = 'https://plugins.miniorange.com/drupal-soft-token';
+
+            $OtpOverSMS              = 'https://plugins.miniorange.com/drupal-otp-over-sms';
+            $OtpOverEmail            = 'https://plugins.miniorange.com/drupal-otp-over-email';
+            $OtpOverSMSandEmail      = 'https://plugins.miniorange.com/drupal-otp-over-sms-and-email';
+            $OtpOverPhoneCall        = 'https://plugins.miniorange.com/drupal-otp-over-phone';
+
+            $EmailVerification       = 'https://plugins.miniorange.com/drupal-email-verification';
+            $HardwareToken           = 'https://plugins.miniorange.com/drupal-hardware-token-yubikey';
+            $SecurityQuestions       = 'https://plugins.miniorange.com/drupal-security-questions-kba';
+            $PushNotification        = 'https://plugins.miniorange.com/drupal-push-notifications';
+            $QrCodeAuthentication    = 'https://plugins.miniorange.com/drupal-qr-code-authentication';
+
+            $output = '';
+            $output .= '<h3>' . t('About <a target="_blank" href="https://plugins.miniorange.com/drupal-two-factor-authentication-2fa">[Know more]</a>') . '</h3>';
+            $output .= '<p>' . t('A highly secure & easy to setup Two Factor Authentication (TFA) for your Drupal site. Rather than relying on a password alone, which can be phished or guessed, miniOrange Two Factor Authentication (TFA) adds a second layer of security to your Drupal accounts. It protects your site from hacks and unauthorized login attempts.') . '</p>';
+            $output .= '<h3>' . t('Configuration') . '</h3>';
+            $output .= '<p>' . t('Configure Two-Factor Authentication in Configuration » <a target = "_blank" href=" ' . $url . ' ">People</a> » <a target = "_blank" href=" ' . $moduleLink . ' ">miniOrange Two-Factor Authentication</a>:') . '</p>';
+            $output .= '<p>
+                           <ol>
+                              <li>' . t('Register with miniOrange. If you already have miniOrange account, enter your username and password to retrieve your account.') . '</li>
+                              <li>' . t('Once the account is retrieved, go to Setup Two-Factor tab to configure the authentication method you would like to use.') . '</li>
+                              <li>' . t('If you need any assistance, go to <a target = "_blank" href="'. $supoortLink .'">Support tab</a> and submit your query. You can also email us at <a href="mailto:drupalsupport@xecurify.com">drupalsupport@xecurify.com</a> or <a href="mailto:info@xecurify.com">info@xecurify.com</a>') . '</li>
+                           </ol>
+                        </p>';
+            $output .= '<br><h3>' . t('Setup Guides') . '</h3>';
+            $output .= '<p>
+                           <table>
+                               <tr>
+                                  <th>' . t('TOTP Based 2FA methods') . '</th>
+                                  <th>' . t('OTP Based 2FA methods') . '</th>
+                                  <th>' . t('Other 2FA methods') . '</th>
+                               </tr>
+                               <tr>
+                                  <td>' . t('<a target = "_blank" href="'. $GoogleAuthenticator .'">Google Authenticator</a>') . '</td>
+                                  <td>' . t('<a target = "_blank" href="'. $OtpOverSMS .'">OTP Over SMS</a>') . '</td>
+                                  <td>' . t('<a target = "_blank" href="'. $EmailVerification .'">Email Verification</a>') . '</td>
+                               </tr>
+                               <tr>
+                                  <td>' . t('<a target = "_blank" href="'. $MicrosoftAuthenticator .'">Microsoft Authenticator</a>') . '</td>
+                                  <td>' . t('<a target = "_blank" href="'. $OtpOverEmail .'">OTP Over Email</a>') . '</td>
+                                  <td>' . t('<a target = "_blank" href="'. $HardwareToken .'">Hardware Token</a>') . '</td>
+                               </tr>
+                               <tr>
+                                  <td>' . t('<a target = "_blank" href="'. $DuoAuthenticator .'">Duo Authenticator</a>') . '</td>
+                                  <td>' . t('<a target = "_blank" href="'. $OtpOverSMSandEmail .'">OTP Over SMS and Email</a>') . '</td>
+                                  <td>' . t('<a target = "_blank" href="'. $SecurityQuestions .'">Security Questions (KBA)</a>') . '</td>
+                               </tr>
+                               <tr>
+                                  <td>' . t('<a target = "_blank" href="'. $AuthyAuthenticator .'">Authy Authenticator</a>') . '</td>
+                                  <td>' . t('<a target = "_blank" href="'. $OtpOverPhoneCall .'">OTP Over Phone call</a>') . '</td>
+                                  <td>' . t('<a target = "_blank" href="'. $PushNotification .'">Push Notification</a>') . '</td>
+                               </tr>
+                               <tr>
+                                  <td>' . t('<a target = "_blank" href="'. $LastPassAuthenticator .'">LastPass Authenticator</a>') . '</td>
+                                  <td></td>
+                                  <td>' . t('<a target = "_blank" href="'. $QrCodeAuthentication .'">QR Code Authentication</a>') . '</td>
+                               </tr>
+                               <tr>
+                                  <td>' . t('<a target = "_blank" href="'. $miniOrangeAuthenticator .'">miniOrange Authenticator</a>') . '</td>
+                                  <td></td>
+                                  <td></td>
+                               </tr>
+                           </table>
+                        </p><br>';
+            return $output;
+    }
+}
