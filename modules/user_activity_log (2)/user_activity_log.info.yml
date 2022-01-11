@@ -1,0 +1,17 @@
+name: User Activity Log
+description: create a user activity log module block
+package: Custom
+type: module
+# core: 8.x
+
+# Information added by Drupal.org packaging script on 2019-04-12
+# version: '8.x-1.x-dev'
+core: '8.x'
+core_version_requirement: ^8 || ^9
+# project: 'user_activity_log'
+# datestamp: 1555066390
+
+# Information added by Drupal.org packaging script on 2020-09-16
+version: '8.x-1.4'
+project: 'user_activity_log'
+datestamp: 1600243495

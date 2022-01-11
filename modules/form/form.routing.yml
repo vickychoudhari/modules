@@ -1,0 +1,25 @@
+form.show_data :
+  path: '/admin/form/{id}/show'
+  defaults:
+    _controller: '\Drupal\form\Controller\FormDataController::show'
+    _title: 'Show Data'
+  requirements:
+    _permission: 'access content'
+
+form.add_form :
+  path: '/admin/form/add'
+  defaults:
+    _title: 'Add Edit And Delete Data'
+    _form: '\Drupal\form\Form\MyForm'
+    _controller: '\Drupal\form\Controller\FormController::index'
+  requirements:
+    _permission: 'access content'
+
+form.delete_form :
+  path: '/admin/form/{id}/delete'
+  defaults:
+    _form: '\Drupal\form\Form\MyDeleteForm'
+    _title: 'DeleteForm'
+  requirements:
+    _access: 'TRUE'
+

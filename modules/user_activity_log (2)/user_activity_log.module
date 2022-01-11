@@ -1,0 +1,20 @@
+<?php
+
+ /**
+  * @file
+  * Implements hook_theme().
+  */
+function user_activity_log_theme($existing, $type, $theme, $path) {
+  // {@inheritdoc}.
+  return [
+    'user_activity_log_tpl' => [
+      'variables' => [
+        'nodes_build' => NULL,
+        'comment_build' => NULL,
+        'list_nodes_build' => NULL,
+        'list_comment_build' => NULL,
+      ],
+      'template' => 'user-activity-log-tpl',
+    ],
+  ];
+}

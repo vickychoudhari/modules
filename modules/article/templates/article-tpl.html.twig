@@ -1,0 +1,12 @@
+<ul>
+
+  {% for node in result_node %}
+    <div class="node-list">
+      <h1>{{node.title}}</h1>
+    <img class="swiper-image" src="{{file_url(node.uri)}}" />
+    </div>
+
+  {% endfor %}
+
+ </ul>
+ 

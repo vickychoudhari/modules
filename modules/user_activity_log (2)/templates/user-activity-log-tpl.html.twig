@@ -1,0 +1,33 @@
+<ul>
+  <li>Total nodes created ({{nodes_build}})</li>
+</ul>
+<ul>
+  <li> Total comment created ({{comment_build}})</li>
+</ul>
+<h3> Recent Created Node</h3>
+
+<ul>
+
+  {% for node in list_nodes_build %}
+    <div class="node-list">
+      <li><a href="{{node.url}}">
+      {{node.title}}</a></li>
+    </div>
+  {% endfor %}
+
+ </ul>
+
+<h3> Recent Comments</h3>
+
+<ul>
+
+  {% for node in list_comment_build %}
+    <div class="node-list">
+       <li> Commented on   <a href="{{node.uri}}">
+       {{node.subject}}</a></li>
+    </div>
+  {% endfor %}
+
+</ul>
+
+<a href="{{path('user_activity_log.nodes')}}">Show more</a>
