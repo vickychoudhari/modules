@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+.one{
+ width:200px !important;
+}
+.one{
+    width:100%;
+}
+    </style>
+</head>
+<body>
+    <p class="one">HELLO ANUKAMPA</p>
+    <button>SHOW</button>
+    <div>sunaina</div>
+    
+</body>
+<script type="text/javascript">
+
+let isclick ="";
+let button = document.querySelector("button");
+let para = document.querySelector("p");
+let box = document.querySelector("div");
+showhide();
+let body =document.querySelector("body");
+button.addEventListener("click",vicky);
+function vicky(){
+    isclick = !isclick;
+    bgcolor();
+    showhide();
+    textchange();
+}
+function bgcolor(){
+    if(isclick){
+        para.style.backgroundColor ="red";
+        box.style.backgroundColor="green";
+        // box.style.color= "grey";
+        body.style.backgroundColor="blue";
+    }
+    else{
+        para.style.backgroundColor ="white";
+        box.style.backgroundColor="white";
+        body.style.backgroundColor="white";
+    }
+}
+    function showhide(){
+        if(isclick){
+            para.style.display ="block";
+        }
+        else {
+            para.style.display ="none";
+        }
+    }
+    function textchange(){
+        if(isclick){
+            button.innerHTML ="hide";
+
+        }
+        else{
+            button.innerHTML ="show";
+        }
+    }
+
+</script>
+</html>

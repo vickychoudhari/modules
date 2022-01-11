@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		
+	</style>
+	<meta charset="utf-8">
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
+<script type="text/javascript">
+	
+$(document).ready(function(){
+	$(window).scroll(function(){
+		var positionTop = $(document).scrollTop();
+		console.log(positionTop);
+		if ((positionTop > 60 && positionTop < 200)) {
+			$('#card-one').addClass('animated bounceInLeft');
+		}
+		if ((positionTop > 300 && positionTop < 350)) {
+			$('#card-two').addClass('animated flipInX');
+		}
+		if ((positionTop > 850 && positionTop < 980)) {
+			$('#card-three').addClass('animated flipInX');
+		}
+		if ((positionTop > 1200 && positionTop < 1319)) {
+			$('#card-four').addClass('animated flipInX');
+		}
+
+});
+});
+
+
+
+
+
+
+</script>
+<title>test</title>
+</head>
+<body>
+<div class="container">
+  <h2>Card Image</h2>
+  <p>Image at the top (card-img-top):</p>
+  <div class="card" style="width:400px" id="card-one">
+    <img class="card-img-top" src="/home/vishal/Desktop/crop report.png" alt="Card image" style="width:100%">
+    <div class="card-body">
+      <h4 class="card-title">John Doe</h4>
+      <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+      <a href="#" class="btn btn-primary">See Profile</a>
+    </div>
+  </div>
+  <br>
+  
+  <p>Image at the bottom (card-img-bottom):</p>
+  <div class="card" style="width:400px" id="card-two">
+    <div class="card-body">
+      <h4 class="card-title">Jane Doe</h4>
+      <p class="card-text">Some example text some example text. Jane Doe is an architect and engineer</p>
+      <a href="#" class="btn btn-primary">See Profile</a>
+    </div>
+    <img class="card-img-bottom" src="/home/vishal/Desktop/crop report.png" alt="Card image" style="width:100%">
+  </div>
+  <br>
+  
+  <p>Image at the bottom (card-img-bottom):</p>
+  <div class="card" style="width:400px" id="card-three">
+    <div class="card-body">
+      <h4 class="card-title">Jane Doe</h4>
+      <p class="card-text">Some example text some example text. Jane Doe is an architect and engineer</p>
+      <a href="#" class="btn btn-primary">See Profile</a>
+    </div>
+    <img class="card-img-bottom" src="/home/vishal/Desktop/crop report.png" alt="Card image" style="width:100%">
+  </div>
+  <br>
+  
+  <p>Image at the bottom (card-img-bottom):</p>
+  <div class="card" style="width:400px" id="card-four">
+    <div class="card-body">
+      <h4 class="card-title">Jane Doe</h4>
+      <p class="card-text">Some example text some example text. Jane Doe is an architect and engineer</p>
+      <a href="#" class="btn btn-primary">See Profile</a>
+    </div>
+    <img class="card-img-bottom" src="/home/vishal/Desktop/crop report.png" alt="Card image" style="width:100%">
+  </div>
+</div>
+
+
+</body>
+</html>
