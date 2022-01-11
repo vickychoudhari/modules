@@ -1,0 +1,207 @@
+@font-face {
+  font-family: 'Roboto Italic';
+  src: url(fonts/Roboto-Italic.ttf);
+}
+
+body {
+	background-color: #f2f3f4;
+	font-family: 'Roboto Italic';
+	margin: 0 auto;
+}
+.wrapper {
+    display: flex;
+}
+aside {
+	flex: 3;
+  display: flex;
+  padding: 15px 0px 0px 15px;
+}
+.galery {
+	display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.img {
+  width: 96%;
+  height: 260px;
+  display: flex;
+  position: relative;
+  box-shadow: 1px -2px 10px 1px grey;
+}
+img {
+    width: 100%;
+}
+.nme {
+  top: 210px;
+  left: 5px;
+  font-weight: lighter;
+  position: absolute;
+}
+.container {
+	display: flex;
+  background-color: white;
+  width: 96%;
+  box-shadow: 0px 1px 13px 2px grey;
+}
+.suit {
+	margin: 19px 0px 0px 18px;
+  color: gray;
+}
+p.sui {
+  margin: 0 auto;
+  color: gray;
+  border-bottom: 1px solid #f0efef;
+  padding: 15px 0px 20px 2px;
+  width: 90%;
+}
+.occup {
+  width: 100%;
+  padding: 5px 00px;
+}
+p.skill {
+  padding: 10px 0px 10px 15px;
+  color: grey;
+  font-size: 18px;
+  font-weight: bold;
+}
+p.exp1 {
+  padding: 0px 0px 0px 15px;
+  color: grey;
+}
+.gray {
+  background-color: lightgray;
+  width: 94%;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 10px;
+}
+.blue {
+  background-color:#45a094;
+  width: 86%;
+  border-radius: 10px;
+}
+.blue,.blue1,.blue2,.blue3 p {
+  color:white;
+}
+.blue3 {
+  background-color:#45a094;
+  width: 80%;
+  border-radius: 10px;
+}
+.blue1 {
+  background-color: #45a094;
+  width: 75%;
+  border-radius: 10px;
+}
+.blue2 {
+  background-color: #45a094;
+  width: 50%;
+  border-radius: 10px;
+}
+p.exp2 {
+  padding: 0px 0px 0px 15px;
+  color: grey;
+}
+.white {
+  width: 94%;
+  height: 20px;
+  background-color: lightgray;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+.orange {
+  width: 100%;
+  background-color: #45a094;
+  height: 20px;
+  border-radius: 10px;
+}
+.orange1 {
+  width: 60%;
+  background-color: #45a094;
+  height: 20px;
+  border-radius: 10px;
+}
+.orange2 {
+  width: 30%;
+  background-color: #45a094;
+  height: 20px;
+  border-radius: 10px;
+}
+main {
+	flex: 7;
+	margin-top: -25px;
+	    padding: 15px 15px 0px 0px;
+}
+.upper {
+	background-color: white;
+	margin: 25px 0px 0px 0px;
+	box-shadow: -8px 6px 20px lightgrey;
+}
+.brief {
+	font-size: 22px;
+  color:gray;
+  margin: 0px 0px 0px 10px;
+ 	padding: 25px 0px 0px 0px;
+ 	font-weight: bold;
+}
+.frnt-dvr {
+	font-size: 18px;
+ 	margin: 30px 0px 0px 24px;
+  font-weight: bolder;
+  color:gray;
+}
+.cal {
+    color: #45a094;
+    font-size:16px;
+}
+span {
+	background-color: #45a094;
+  padding: 7px;
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+  margin-left: 5px;
+}
+.inf {
+	width: 95%;
+  margin: 00 auto;
+  border-bottom: 1px solid  #f0efef;
+ 	padding: 5px 0px 20px 0px;
+}
+.lower {
+	background-color: white;
+	box-shadow: -4px 1px 24px 0px grey;
+}
+.cert {
+	font-size: 22px;
+  color: gray;
+  margin-top: 15px;
+  font-weight: bold;
+  padding-top: 20px;
+}
+.muk {
+	color: #45a094;
+	font-size: 18px;
+}
+footer {
+  width: 100%;
+  height: 150px;
+  background-color: #45a094;
+  text-align: center;
+  margin-top: 15px;
+}
+.wrp2 {
+  display: flex;
+  justify-content: center;
+}
+p.find {
+  color: white;
+}
+.logo p {
+  color: white;
+}
+.logo span {
+  margin-left: 0px;
+  padding: 5px;
+  text-decoration: underline;
+}
