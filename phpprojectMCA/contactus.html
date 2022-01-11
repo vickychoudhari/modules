@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="aboutus.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>about us page</title>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="logo-image">
+        <img src="image/doctorlogo.jpeg">
+      </div>
+      <div class="listing">
+        <ul class="lists">
+          <li class="ser"><a href="home.html">Home</a></li>
+          <li class="ser"><a href="login.php">Login</a></li>
+          <li class="ser"><a href="#">Medicine Information</a></li>
+          <li class="ser"><a href="aboutus.html">about us </a></li>
+          <li class="ser"><a href="contactus.html">Contact-Us</a></li>
+        </ul>
+      </div>
+    </header>
+    <section class="form">
+      <h2 class="he">Contact Us</h2>
+      <div class="fouc">
+
+        <form method="post" action="validation.php">
+          <input type="text" name="name" placeholder="Name">
+          <input type="text" name="email" placeholder="Email" >
+          <input type="number" id="num" name="number" placeholder="Number" pattern="^\d{10}$" required >
+          <textarea name="comment" placeholder="Comment" rows="5" cols="40"></textarea>
+          <br><br>
+          <input type="submit" name="submit" value="Submit">  
+        </form>
+
+
+      </div>
+    </section>
+    <footer>
+      <div class="footer1">
+        <div class="space">
+          <h2>We Care</h2>
+          <p class="verify">Want to add your own creative touch? Make your own theme! You have many tools to play around with, like colors schemes, icons, fonts, images, and backgrounds.</p>
+        </div>
+      </div>
+      <div class="footer1">
+        <div class="space">
+          <h2>Contact Us</h2>
+          <p class="text1">Christian medical college vallori <br> SECTOR 44 Kolkata. pin code 332222.</p>
+        </div>
+      </div>
+      <div class="footer1">
+        <div class="space">
+          <h2>Contact Us</h2>
+          <p class="text1">Sunday         08:30 - 20:00
+
+            Monday        08:30 - 20:00
+
+            Tuesday       08:30 - 20:00
+
+            Wednesday  08:30 - 20:00
+
+            Thursday      08:30 - 20:00
+
+            Friday           Closed
+
+            Saturday       Closed
+          </p>
+        </div>
+      </div>
+      <div class="footer1">
+        <div class="space">
+          <h2>Social</h2>
+          <p class="soc">
+            <p class="m"><a href="https://facebook.com"><i class="fa fa-facebook-square"></i></a></p>
+            <p class="u"><a href="https://twitter.com"><i class="fa fa-twitter-square"></i></a></p>
+            <p class="k"><a href="https://instagram.com"><i class="fa fa-instagram"></i></a></p>
+          </p>
+        </div>
+      </footer>
+    </div>
+  </body>
+  </html>

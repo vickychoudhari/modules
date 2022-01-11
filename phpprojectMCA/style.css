@@ -1,0 +1,327 @@
+*{
+	padding: 0;
+	margin:0;
+	box-sizing: border-box;
+	font-family:  'Montserrat', sans-serif;
+}
+.site-headers{
+	width:100%;
+	height:100vh;
+	background: linear-gradient(57deg,#00c6a7, #1e4d92);
+	clip-path: polygon(0% 0%, 100% 0%, 100% 75%,0% 100%);
+}
+nav{
+	width: 100%;
+	height:100px;
+	display: flex;
+	color:white;
+}
+.logo {
+	width:50%;
+	height: 100px;
+}
+.logo img{
+	line-height: 100px;
+	padding-left: 50px;
+	font-size: 35px;
+	text-shadow: inherit;
+	height: 110px;
+    margin-top: 10px;
+}
+.menu{
+	width: 50%;
+	height: 100px;
+
+}
+.menu ul {
+	width:100%;
+	height: 100px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	
+}
+.menu ul li{
+	list-style: none;
+	font-size: 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+section{
+	display: flex;
+}
+.leftside{
+	width:45%;
+	height:auto;
+	overflow: hidden;
+	margin-top: 20px;
+}
+.leftside img{
+	width:600px;
+	height: 413px;
+	margin-left: 5px;
+	margin-top: 20px;
+	clip-path: polygon(0% 2%, 100% 0%, 100% 75%,0% 140%);
+
+}
+.rightside{
+	width:55%;
+	height:300px;
+	color:white;
+	text-align: center;
+	margin-top: 80px;
+	padding: 40px;
+}
+.rightside h1{
+	font-size: 50px;
+	font-weight: 900;
+	text-transform: uppercase;
+}
+.rightside p{
+	font-size: 1.1rem;
+	padding: 30px 0;
+}
+.rightside button{
+	font-size: 17px; font-weight: bold;
+	color:white; text-transform: uppercase;
+	border-radius: 4px;
+	padding: 20px 35px;
+	background: linear-gradient(57deg,#00c6a7, #1e4d92);
+	transition: 4s; 
+}
+.rightside button:hover{
+	background: linear-gradient(57deg, #1e4d92,#00c6a7);
+	margin-left:40px;
+}
+.middle{
+	width:100%;
+	height:500px;
+    display: flex;
+}
+.middle img{
+	width:100%;
+	clip-path: polygon(-10000% 100%, 100% 0%, 10000% 105%,200% 10040% );
+	z-index: -1;
+}
+.auto {
+    display: flex;
+    width: 100%;
+    margin-top: 30px;
+    padding-bottom: 40px;
+}
+.do_1 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.done {
+    text-align: center;
+    font-size: 42px;
+    color: #00264d;
+    line-height: 64px;
+    font-weight: bolder;
+}
+.statement {
+    width: 100%;
+    display: flex;
+}
+.icons {
+    width: 100%;
+    display: flex;
+    margin: 00 auto;
+    justify-content: space-around;
+}
+.gly,.gly1,.gly2 {
+    width: 25%;
+    text-align: center;
+}
+.gly,.gly1,.gly2 p.tex {
+    color: #083B50;
+    font-size: 13px;
+}
+.icons .tex {
+    font-size: 13px;
+    color: #083B50;
+}
+i.fa.fa-heartbeat, i.fa.fa-user-md{
+
+    font-size: 50px;
+    color: linear-gradient(360deg, #00c6a7,#1e4d92);
+
+}
+i.fa.fa-medkit{
+	font-size: 50px;
+	color:#083B50;
+}
+i.fa.fa-ambulance, .fa.fa-wheelchair-alt, .fa.fa-stethoscope {
+	font-size:50px;
+	color:#083B50;
+}
+ul li:hover{
+	color:#fff;
+	font-size: 29px;
+}
+
+
+
+
+
+.container{
+	width: 100%;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+
+}
+.container .test{
+	position: relative;
+
+}
+.container .test .face{
+	width: 400px;
+	height: 200px;
+	transition: 0.8s;
+
+}
+
+.container .test .face.face1{
+	position: relative;
+	background:#fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1;
+	margin-left: 6px;
+	transform: translateY(99px);
+
+}
+.container .test:hover .face.face1{
+background: linear-gradient(57deg,#00c6a7, #1e4d92);
+transform: translateY(0);
+
+}
+.container .test .face.face2 .content{
+	opacity: 0.2;
+	transition: 0.5s;
+}
+.container .test:hover .face.face2 .content{
+opacity: 2;
+}
+
+.container .test:hover .face.face2 .content img{
+	max-width: 300px;
+}
+
+
+.container .test .face.face2{
+	position: relative;
+	background: #e6eeff;
+    display: flex;
+    margin: 6px;
+    justify-content: center;
+    align-items: center;
+    padding:20px;
+    box-sizing: border-box;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+}
+.container .test .face.face2 .content p{
+	margin:0;
+	padding:0;
+	color: #083B50;
+	
+	text-transform: uppercase;
+}
+.container .test .face.face2 .content a{
+	margin: 15px 0 0;
+	display: inline-block;
+	text-decoration: none;
+	font-weight: 900;
+	color: #333;
+	padding:5px;
+	border: 1px solid #333;
+}
+
+.container .test .face.face2 .content a:hover{
+	background:#333;
+	color: #fff;
+}
+button{
+	transition: 0.9s;
+	transform: translateX(100px);
+
+
+}
+footer {
+    background-color: #0b3545;
+    width: 100%;
+    display: flex;
+    margin-top:90px; 
+}
+.footer1 {
+    display: flex;
+    width: 24%;
+    margin-top: 72px;
+    color: #FF9857;
+    justify-content: space-around;
+}
+.space {
+    width: 45%;
+}
+.footer1 h2 {
+    font-weight: lighter;
+    font-size: 20px;
+}
+p.verify {
+    font-size: 13px;
+    color: #ece7e4;
+}
+p.text1 {
+    font-size: 13px;
+    color: #ece7e4;
+    line-height: 20px;
+}
+p.m {
+    font-size: 25px;
+    color: #FF9857;
+    transition: 0.5s;
+}
+p.m:hover{
+	transform: rotate(10deg);
+	margin: 6px;
+	
+}
+p.u {
+    font-size: 25px;
+    color: #FF9857;
+    transition: 0.5s;
+}
+p.u:hover{
+	transform: rotate(6deg);
+	margin: 6px;
+}
+p.k {
+    font-size: 25px;
+    color: #FF9857;
+    transition: 0.5s;
+}
+p.k:hover{
+	transform: rotate(3deg);
+	margin: 6px;
+	
+}
+.m a{
+	color:orange;
+}
+.u a{
+	color:orange;
+}
+.k a{
+	color:orange;
+}
+
+
+/*services page CSS code 
+*/
+
+
